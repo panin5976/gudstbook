@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <body>  
-    <from action"show.php" method="post">
+    <form action="show.php" method="post">
         what is your name<input type="text" name="name"><br>
         what is your age<input type="text" name="age"><br>
-        <input type="submit" value"submit">
-    </from>
-    
-   
+        <input type="submit" value="submit">
+    </form>
 
 </body>
+
 </html>

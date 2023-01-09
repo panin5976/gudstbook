@@ -2,11 +2,11 @@
 <html>
 <body>  
     <?php
-    $name = $_GET["name"]
-    $age = $_GET["age"]
+    $name = $_POST["name"];
+    $age = $_POST["age"];
 
-    echo "name" .$name."<be>"
-    echo "age".$age."<be>"
+    echo "Name" .$name."<br>";
+    echo "Age".$age."<br>";
     ?>
 </body>
 </html>
