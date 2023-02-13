@@ -1,35 +1,29 @@
 <?php
 require("connect_db.php");
 
-$sql = "SELECT id, fname, lname, age, sex, married FROM serway";
+$id=$_GET["id"];
+$sql = "SELECT * FROM serway
+ WHERE id=$id";
 $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    if($row["sex"]=="M"){
-        if($row["age"]>=15){
-            echo "นาย".$row["fname"]." ".$row["lname"]." <a href='edit_people.php?id=".$row["id"]."'>Edit</a><br>";
-        }
-        else{
-            echo "ด.ช.".$row["fname"]." ".$row["lname"]." <a href='edit_people.php?id=".$row["id"]."'>Edit</a><br>";
-        }
-    }else{
-        if($row["age"]>=15){
-            if($row["married"]=="M"){
-                echo "นาง".$row["fname"]." ".$row["lname"]." <a href='edit_people.php?id=".$row["id"]."'>Edit</a><br>";
-            }else{
-                echo "น.ส.".$row["fname"]." ".$row["lname"]." <a href='edit_people.php?id=".$row["id"]."'>Edit</a><br>";
-            }
-           
-        }
-        else{
-            echo "ด.ญ.".$row["fname"]." ".$row["lname"]." <a href='edit_people.php?id=".$row["id"]."'>Edit</a><br>";
-        }
-    }
-  }
-} else {
-  echo "0 results";
+if($result->num_rows > 0){
+    $row = $result->fetch_assoc();
+?>
+<form action="save_edit_people.php" method="post">
+    <input type="hidden" name="id"value="<?php print($row["id"]);?>">
+    First Name:<input type="text" name="fname" value="<?php print($row["fname"]); ?>"><br>
+    Last Name:<input type="text" name="lname" value="<?php print($row["lname"]); ?>"><br>
+    Age:<input type="text" name="age" value="<?php print($row["age"]); ?>"><br>
+    Sex:<select name="sex">
+            <option value="M" <?php if($row["sex"]=="M") print("selected");?>>Male</option>
+            <option value="F" <?php if($row["sex"]=="F") print("selected");?>>Female</option>
+        </select><br>
+    Marry Status:<select name="marry_status">
+            <option value="S" <?php if($row["marry_status"]=="S") print("selected");?>>Single</option>
+            <option value="M" <?php if($row["marry_status"]=="M") print("selected");?>>Married</option>
+        </select><br>
+    <input type="submit" value="edit">
+</form>
+<?php
 }
-$conn->close();
 ?>
